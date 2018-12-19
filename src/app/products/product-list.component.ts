@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number =2;
     showImage: boolean =false;
+    errorMessage: string;
 
     // Properties
     // ==========
@@ -50,8 +51,12 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.productService.getProducts().subscribe(
-          products => this.products = products
+          products => {
+            this.products = products,
+            this.filteredProducts = this.products;
+          },  
+          error => this.errorMessage = <any>error
+           
         );
-        this.filteredProducts = this.products;
     }
 }
